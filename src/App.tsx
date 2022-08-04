@@ -8,7 +8,7 @@ import { Post } from "./pages/Post";
 function App() {
   return (
     <Routes>
-      <Route path="/login" element={<Login />}></Route>
+      <Route index element={<Login />}></Route>
       <Route path="/home" element={<Home />}></Route>
       <Route path="/post" element={<Post />}></Route>
     </Routes>
