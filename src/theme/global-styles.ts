@@ -1,4 +1,6 @@
 import { createGlobalStyle } from "styled-components";
+type Palette = Record<string, string>;
+
 export const GlobalStyle = createGlobalStyle`
 	* {
     box-sizing: border-box;
@@ -17,3 +19,13 @@ export const GlobalStyle = createGlobalStyle`
 		letter-spacing: .75px
 	}
 `;
+
+const palette: Palette = {
+  green: "#2d4440",
+  gray: "#c1b59f",
+  yellow: "#c69433",
+  mustard: "#9f7425",
+  brown: "#83611d",
+  orange: "#de6936",
+};
+export default palette;
