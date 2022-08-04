@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { GlobalStyle } from "../theme/global-styles";
+import palette from "../theme/global-styles";
 const LoginContainer = styled.div`
   width: 100vw;
   height: 100vh;
-  background: #2d4440;
+  background: ${palette.green};
   display: flex;
   flex-direction: column;
   gap: 28px;
@@ -23,14 +24,14 @@ const EmailInput = styled.input`
   width: 530px;
   border: 0px solid;
   height: 90px;
-  background-color: white;
+  background-color: #fff;
   padding-left: 22px;
 `;
 
 const LoginButton = styled.button`
   width: 530px;
   height: 90px;
-  background: #c69433;
+  background: ${palette.yellow};
   color: #fff;
   border: 0px solid;
   font-weight: 400;
