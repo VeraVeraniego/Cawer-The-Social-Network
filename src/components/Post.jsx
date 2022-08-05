@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import palette from "../theme/global-styles";
 const PostContainer = styled.section`
-  min-width: 1011px;
+  width: 1000px;
   display: grid;
   border: solid 1px #e1e1e1;
   grid-template:
