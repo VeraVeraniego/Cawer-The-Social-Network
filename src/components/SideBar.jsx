@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import palette, { GlobalStyle } from "../theme/global-styles";
 
-const NavigationBar = styled.div`
+const NavigationBar = styled.article`
   height: 100vh;
   background-color: ${palette.green};
   width: 22vw;
@@ -44,16 +44,14 @@ const LogoutButton = styled.h3`
 `;
 export function SideBar() {
   return (
-    <>
+    <NavigationBar>
       <GlobalStyle />
-      <NavigationBar>
-        <NavigationLinks>
-          <TitleLink to="/post">My Posts</TitleLink>
-          <TitleLink to="/post">All Posts</TitleLink>
-        </NavigationLinks>
-        <UserLogged>Logged in as: $toDo</UserLogged>
-        <LogoutButton>LOGOUT</LogoutButton>
-      </NavigationBar>
-    </>
+      <NavigationLinks>
+        <TitleLink to="/post">My Posts</TitleLink>
+        <TitleLink to="/post">All Posts</TitleLink>
+      </NavigationLinks>
+      <UserLogged>Logged in as: $toDo</UserLogged>
+      <LogoutButton>LOGOUT</LogoutButton>
+    </NavigationBar>
   );
 }
