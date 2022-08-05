@@ -6,6 +6,7 @@ const NavigationBar = styled.article`
   height: 100vh;
   background-color: ${palette.green};
   width: 22vw;
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
