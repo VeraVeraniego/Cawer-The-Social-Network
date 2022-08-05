@@ -14,7 +14,6 @@ const PostsContainer = styled.article`
   display: flex;
   flex-direction: column;
   gap: 27px;
-  margin: 97px 200px;
 `;
 
 export function Home() {
