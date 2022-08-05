@@ -19,17 +19,15 @@ const PostsContainer = styled.article`
 
 export function Home() {
   return (
-    <>
+    <PageContainer>
       <GlobalStyle />
-      <PageContainer>
-        <SideBar />
-        <PostsContainer>
-          <Post />
-          <Post />
-          <Post />
-          <Post />
-        </PostsContainer>
-      </PageContainer>
-    </>
+      <SideBar />
+      <PostsContainer>
+        <Post />
+        <Post />
+        <Post />
+        <Post />
+      </PostsContainer>
+    </PageContainer>
   );
 }
