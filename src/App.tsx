@@ -7,9 +7,9 @@ import { PostDetails } from "./pages/PostDetails";
 function App() {
   return (
     <Routes>
-      <Route index element={<Login />}></Route>
-      <Route path="/home" element={<Home />}></Route>
-      <Route path="/post" element={<Post />}></Route>
+      <Route path="/login" element={<Login />}></Route>
+      <Route index element={<Home />}></Route>
+      <Route path="/post" element={<PostDetails />}></Route>
     </Routes>
   );
 }
