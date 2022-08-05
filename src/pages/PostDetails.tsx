@@ -58,15 +58,15 @@ const AuthorName = styled.h3`
   line-height: 29px;
 `;
 const AuthorUsername = styled.h3``;
-const AuthorPhone = styled.h3`
+const AuthorPhone = styled.h4`
   align-self: flex-start;
   margin-left: 30px;
 `;
-const AuthorEmail = styled.h3`
+const AuthorEmail = styled.h4`
   align-self: flex-start;
   margin-left: 30px;
 `;
-const AuthorAddress = styled.h3`
+const AuthorAddress = styled.h4`
   align-self: flex-start;
   margin-left: 30px;
 `;
