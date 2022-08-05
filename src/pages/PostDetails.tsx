@@ -84,8 +84,27 @@ export function PostDetails() {
       <SideBar />
       <PostsAndCommentsContainer>
         <FullPostAndAuthorInfoContainer>
-          <FullPost></FullPost>
-          <AuthorInfo></AuthorInfo>
+          <FullPost>
+            <PostTitle>Post Title</PostTitle>
+            <PostImage
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXLXztnfey5NwGn1x1EA1NSlJZ9YS62nGhR4-4ST1Dws3JUvEUWh2dn-pE0qd6LgF7DVs&usqp=CAU"
+              alt="standby"
+            ></PostImage>
+            <PostDescription>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id
+              delectus optio, accusamus magni mollitia recusandae facilis quos
+              quas laudantium? Deserunt nulla nemo recusandae asperiores? Earum
+              consequatur rerum doloribus ipsam error.
+            </PostDescription>
+          </FullPost>
+          <AuthorInfo>
+            <AuthorImage />
+            <AuthorName>James Webb</AuthorName>
+            <AuthorUsername>@WebbJaT</AuthorUsername>
+            <AuthorPhone>952543435</AuthorPhone>
+            <AuthorEmail>jameswebb@ravn.co</AuthorEmail>
+            <AuthorAddress>P Sherman 42 Wallabe Sydney</AuthorAddress>
+          </AuthorInfo>
         </FullPostAndAuthorInfoContainer>
         <CommentsContainer>
           <Comment />
