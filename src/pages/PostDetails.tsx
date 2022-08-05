@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { Comment } from "../components/Comment";
 import { SideBar } from "../components/SideBar";
-import { GlobalStyle } from "../theme/global-styles";
+import palette, { GlobalStyle } from "../theme/global-styles";
 
 const PageContainer = styled.div`
   display: flex;
