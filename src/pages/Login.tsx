@@ -3,7 +3,7 @@ import { GlobalStyle } from "../theme/global-styles";
 import palette from "../theme/global-styles";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
-const LoginContainer = styled.div`
+const LoginForm = styled.form`
   width: 100vw;
   height: 100vh;
   background: ${palette.green};
@@ -46,23 +46,24 @@ const LoginButton = styled.button`
 `;
 export function Login() {
   const [email, setEmail] = useState<string>("");
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
+  };
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // aquí me quedé minuto 12:20 React user login and authentication with axios
   };
   return (
     <>
       <GlobalStyle />
-      <LoginContainer>
+      <LoginForm onSubmit={handleSubmit}>
         <Title>WELCOME</Title>
         <EmailInput
           placeholder="user@ravn.co"
           onChange={handleChange}
         ></EmailInput>
-        <Link to="/">
-          <LoginButton>LOGIN</LoginButton>
-        </Link>
-      </LoginContainer>
+        <LoginButton>LOGIN</LoginButton>
+      </LoginForm>
     </>
   );
 }
