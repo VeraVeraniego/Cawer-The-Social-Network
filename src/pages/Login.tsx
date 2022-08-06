@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import { GlobalStyle } from "../theme/global-styles";
 import palette from "../theme/global-styles";
-import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import AuthContext from "../context/AuthProvider";
+import axios from "axios";
+import { IUser } from "../interfaces/IUser";
+import { JSONPLACEHOLDERS_API } from "../utils/constants";
 const LoginForm = styled.form`
   width: 100vw;
   height: 100vh;
@@ -45,13 +49,29 @@ const LoginButton = styled.button`
   cursor: pointer;
 `;
 export function Login() {
+  // const { setAuth } = useContext(AuthContext);
   const [email, setEmail] = useState<string>("");
+  // localStorage.setItem("authd", "true");
+  // const [authenticated, setAuthenticated] = useState<boolean>(
+  //   localStorage.getItem("authd") === "true" ? true : false
+  // );
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // aquí me quedé minuto 12:20 React user login and authentication with axios
+    try {
+      const response = await axios.get(JSONPLACEHOLDERS_API.USERS);
+      const usersArray: Array<IUser> = response.data;
+      const emailsArray: Array<string> = usersArray.map((element) =>
+        element?.email.toLowerCase()
+      );
+      const isValidEmail: boolean = emailsArray.some(
+        (element) => element === email.toLocaleLowerCase()
+      );
+      if (isValidEmail) {
+      }
+    } catch (err) {}
   };
   return (
     <>
@@ -59,6 +79,7 @@ export function Login() {
       <LoginForm onSubmit={handleSubmit}>
         <Title>WELCOME</Title>
         <EmailInput
+          type="email"
           placeholder="user@ravn.co"
           onChange={handleChange}
         ></EmailInput>
@@ -66,4 +87,5 @@ export function Login() {
       </LoginForm>
     </>
   );
+  // function includesEmail(inputEmail, emailList) {}
 }
