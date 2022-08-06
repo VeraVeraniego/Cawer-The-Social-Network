@@ -66,10 +66,18 @@ export function Login() {
       const emailsArray: Array<string> = usersArray.map((element) =>
         element?.email.toLowerCase()
       );
-      const isValidEmail: boolean = emailsArray.some(
-        (element) => element === email.toLocaleLowerCase()
-      );
+      const isValidEmail: boolean = usersArray.some((element) => {
+        console.log(element.email);
+        if (element.email.toLocaleLowerCase() === email.toLocaleLowerCase()) {
+          localStorage.setItem("userAuthed", JSON.stringify(element));
+          console.log(localStorage.getItem("userAuthed"));
+          return true;
+        }
+        console.log("not authed");
+        return false;
+      });
       if (isValidEmail) {
+        set;
       }
     } catch (err) {}
   };
