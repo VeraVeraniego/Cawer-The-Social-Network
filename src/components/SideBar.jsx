@@ -34,7 +34,7 @@ const UserLogged = styled.h3`
   margin-top: auto;
   cursor: default;
 `;
-const LogoutButton = styled.h3`
+const LogoutLink = styled(Link)`
   cursor: pointer;
   font-size: 18px;
   line-height: 22px;
@@ -52,7 +52,7 @@ export function SideBar() {
         <TitleLink to="/post">All Posts</TitleLink>
       </NavigationLinks>
       <UserLogged>Logged in as: $toDo</UserLogged>
-      <LogoutButton>LOGOUT</LogoutButton>
+      <LogoutLink to="/login">LOGOUT</LogoutLink>
     </NavigationBar>
   );
 }
