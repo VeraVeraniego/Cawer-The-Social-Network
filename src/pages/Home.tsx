@@ -7,10 +7,10 @@ import { SideBar } from "../components/SideBar";
 
 const PageContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  /* flex-direction: column; */
 `;
 
-const PostsContainer = styled.article`
+const PostsContainer = styled.main`
   display: flex;
   flex-direction: column;
   gap: 27px;
