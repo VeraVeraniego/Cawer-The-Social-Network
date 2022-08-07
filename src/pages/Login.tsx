@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import { GlobalStyle } from "../theme/global-styles";
 import palette from "../theme/global-styles";
-import { Link, Navigate } from "react-router-dom";
-import React, { useContext, useState } from "react";
-import AuthContext from "../context/AuthProvider";
+import { Navigate } from "react-router-dom";
+import React, { useState } from "react";
 import axios from "axios";
 import { IUser } from "../interfaces/IUser";
 import { JSONPLACEHOLDERS_API } from "../utils/constants";
