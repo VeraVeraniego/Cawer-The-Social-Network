@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { GlobalStyle } from "../theme/global-styles";
 import palette from "../theme/global-styles";
-import { Navigate } from "react-router-dom";
-import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import React, { ReactNode, useState } from "react";
 import axios from "axios";
 import { IUser } from "../interfaces/IUser";
 import { JSONPLACEHOLDERS_API } from "../utils/constants";
@@ -60,7 +60,8 @@ const ValidationText = styled.p`
   color: #fff;
   margin-top: 16px;
 `;
-export function Login() {
+export function Login({ authenticate }: { authenticate: any }) {
+  const navigate = useNavigate();
   const currentlyAuthed: boolean | null =
     localStorage.getItem("userAuth") === null ? null : true;
   const [email, setEmail] = useState<string>("");
@@ -94,8 +95,11 @@ export function Login() {
       setFetchingData(true);
       const response = await axios.get(JSONPLACEHOLDERS_API.USERS);
       setFetchingData(false);
-      if (!authenticateEmailOnAPI(response.data))
+      if (authenticateEmailOnAPI(response.data))
+        navigate("/post", { replace: true });
+      else {
         setEmailValidationMessage("User was not found!");
+      }
     } catch (err: unknown) {
       setAuthenticated(false);
       setFetchingData(false);
@@ -105,7 +109,6 @@ export function Login() {
   };
   return (
     <>
-      {authenticated && <Navigate to="/" />}
       <GlobalStyle />
       <LoginForm onSubmit={handleSubmit} noValidate>
         <Title>WELCOME</Title>
@@ -138,6 +141,7 @@ export function Login() {
         localStorage.setItem("userAuth", JSON.stringify(element));
         setEmailValidationMessage("");
         setAuthenticated(true);
+        authenticate();
         return true;
       }
       setAuthenticated(false);
