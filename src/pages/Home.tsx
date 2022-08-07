@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { IUser } from "../interfaces/IUser";
 import { IPost } from "../interfaces/IPost";
 import { Link } from "react-router-dom";
+import { PHOTOS_API } from "../utils/constants";
 
 const PageContainer = styled.div`
   display: flex;
@@ -52,8 +53,7 @@ export function Home({ path }: { path: "home" | "feed" }) {
                 key={ele.id}
                 title={ele.title}
                 body={ele.body}
-                // since photos api blocked me I'm using 14 images I downloaded from internet
-                img={`./imgs/${ele.userId}.jpg`}
+                img={PHOTOS_API.USER_PHOTOS(ele.userId)}
               />
             </PostLink>
           );
