@@ -21,8 +21,9 @@ function App() {
         element={<Login authenticate={() => setAuthenticate(true)} />}
       ></Route>
       <Route path="/" element={<SideBar />}>
-        <Route path="home" element={<Home />}></Route>
-        <Route path="post" element={<PostDetails />}></Route>
+        <Route path="home" element={<Home path="home" />}></Route>
+        <Route path="feed" element={<Home path="feed" />}></Route>
+        <Route path="post/:id" element={<PostDetails />}></Route>
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
