@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import palette, { GlobalStyle } from "../theme/global-styles";
+import { IUser } from "../interfaces/IUser";
 
 const NavigationBar = styled.article`
   height: 100vh;
@@ -18,13 +19,21 @@ const NavigationLinks = styled.div`
   flex-direction: column;
   gap: 55px;
 `;
-const TitleLink = styled(Link)`
+const TitleLink = styled(NavLink)`
   text-decoration: none;
   font-size: inherit;
   font-weight: 400;
   color: ${palette.gray};
   display: block;
-  margin-bottom: 0;
+`;
+const ActiveTitleLink = styled(NavLink)`
+  text-decoration: none;
+  font-size: inherit;
+  font-weight: 400;
+  color: ${palette.gray};
+  display: block;
+  border-bottom: 6px solid;
+  padding-bottom: 6px;
 `;
 const UserLogged = styled.h3`
   font-size: 18px;
@@ -43,7 +52,11 @@ const LogoutButton = styled.h5`
   margin-bottom: 34px;
   margin-top: 24px;
 `;
+const LogoutLink = styled(Link)`
+  text-decoration: none;
+`;
 export function SideBar() {
+  const location = useLocation().pathname;
   function handleLogout() {
     localStorage.clear();
   }
@@ -52,15 +65,28 @@ export function SideBar() {
       <NavigationBar>
         <GlobalStyle />
         <NavigationLinks>
-          <TitleLink to="/post">My Posts</TitleLink>
-          <TitleLink to="/post">All Posts</TitleLink>
+          {location.includes("home") ? (
+            <>
+              <ActiveTitleLink to="home">My Posts</ActiveTitleLink>
+              <TitleLink to="feed">All Posts</TitleLink>
+            </>
+          ) : (
+            <>
+              <TitleLink to="home">My Posts</TitleLink>
+              <ActiveTitleLink to="feed">All Posts</ActiveTitleLink>
+            </>
+          )}
         </NavigationLinks>
-        <UserLogged>Logged in as: $toDo</UserLogged>
-        <Link to="/login">
+        <UserLogged>Logged in as: {getUsername()}</UserLogged>
+        <LogoutLink to="/login">
           <LogoutButton onClick={handleLogout}>LOGOUT</LogoutButton>
-        </Link>
+        </LogoutLink>
       </NavigationBar>
       <Outlet />
     </>
   );
+  function getUsername() {
+    const user: IUser = JSON.parse(localStorage.getItem("userAuth")!);
+    return user.username;
+  }
 }
