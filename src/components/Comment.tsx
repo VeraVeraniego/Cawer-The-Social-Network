@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { GlobalStyle } from "../theme/global-styles";
 import palette from "../theme/global-styles";
+import { ICommentComponent } from "../interfaces/IComment";
 
 const CommentContainer = styled.article`
   width: 1011px;
@@ -34,19 +35,16 @@ const Email = styled.p`
   line-height: 15px;
   margin: 20px;
 `;
-export function Comment() {
+export function Comment({ name, body, email }: ICommentComponent) {
   return (
     <CommentContainer>
       <GlobalStyle />
       <UserCommentImage />
       <NameAndBodyContainer>
-        <Name>Jose Arturo</Name>
-        <Body>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic quam
-          obcaecati aperiam nulla odit doloremque debitis molestiae dolore
-        </Body>
+        <Name>{name}</Name>
+        <Body>{body}</Body>
       </NameAndBodyContainer>
-      <Email>jefwoief@ravn.co</Email>
+      <Email>{email}</Email>
     </CommentContainer>
   );
 }
