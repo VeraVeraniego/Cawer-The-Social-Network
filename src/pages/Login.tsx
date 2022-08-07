@@ -80,31 +80,21 @@ export function Login() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoginDisabled(true);
+
     if (!isValidEmail(email)) {
-      if (email === "") setEmailValidationMessage("Please enter an email");
-      else setEmailValidationMessage("Wrong email format");
+      let validationMessage: string;
+      if (email === "") validationMessage = "Please enter an email";
+      else validationMessage = "Wrong email format";
+      setEmailValidationMessage(validationMessage);
       setAuthenticated(false);
       return;
     }
+
     try {
       setFetchingData(true);
       const response = await axios.get(JSONPLACEHOLDERS_API.USERS);
       setFetchingData(false);
-      const usersArray: Array<IUser> = response.data;
-      const successfullValidation: boolean = usersArray.some(
-        (element: IUser) => {
-          if (element.email.toLocaleLowerCase() === email.toLocaleLowerCase()) {
-            localStorage.setItem("userAuth", JSON.stringify(element));
-            localStorage.setItem("isUserAuthed", "true");
-            setEmailValidationMessage("");
-            setAuthenticated(true);
-            return true;
-          }
-          setAuthenticated(false);
-          return false;
-        }
-      );
-      if (!successfullValidation)
+      if (!authenticateEmailOnAPI(response.data))
         setEmailValidationMessage("User was not found!");
     } catch (err: unknown) {
       setAuthenticated(false);
@@ -141,5 +131,19 @@ export function Login() {
     const regex =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return regex.test(email);
+  }
+  function authenticateEmailOnAPI(usersAllowed: Array<IUser>) {
+    const validationResult: boolean = usersAllowed.some((element: IUser) => {
+      if (element.email.toLocaleLowerCase() === email.toLocaleLowerCase()) {
+        localStorage.setItem("userAuth", JSON.stringify(element));
+        localStorage.setItem("isUserAuthed", "true");
+        setEmailValidationMessage("");
+        setAuthenticated(true);
+        return true;
+      }
+      setAuthenticated(false);
+      return false;
+    });
+    return validationResult;
   }
 }
