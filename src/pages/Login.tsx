@@ -62,7 +62,7 @@ const ValidationText = styled.p`
 `;
 export function Login() {
   const currentlyAuthed: boolean | null =
-    localStorage.getItem("userAuth") === "null" ? true : null;
+    localStorage.getItem("userAuth") === null ? null : true;
   console.log(currentlyAuthed);
   const [email, setEmail] = useState<string>("");
   const [fetchingData, setFetchingData] = useState<boolean>(false);
