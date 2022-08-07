@@ -9,11 +9,12 @@ import { JSONPLACEHOLDERS_API } from "../utils/constants";
 const LoginForm = styled.form`
   width: 100vw;
   height: 100vh;
+  padding-top: 33vh;
   background: ${palette.green};
   display: flex;
   flex-direction: column;
   gap: 28px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 `;
 const Title = styled.h1`
@@ -32,8 +33,13 @@ const EmailInput = styled.input`
   background-color: #fff;
   padding-left: 22px;
 `;
-
+const ButtonAndValidation = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 const LoginButton = styled.button`
+  position: relative;
   font-size: 24px;
   line-height: 29px;
   width: 530px;
@@ -46,6 +52,13 @@ const LoginButton = styled.button`
   letter-spacing: 0em;
   line-height: 29px;
   cursor: pointer;
+  :disabled {
+    background-color: ${palette.gray};
+  }
+`;
+const ValidationText = styled.p`
+  color: #fff;
+  margin-top: 16px;
 `;
 export function Login() {
   // const { setAuth } = useContext(AuthContext);
