@@ -61,51 +61,85 @@ const ValidationText = styled.p`
   margin-top: 16px;
 `;
 export function Login() {
-  // const { setAuth } = useContext(AuthContext);
+  const currentlyAuthed: boolean | null =
+    localStorage.getItem("isUserAuthed") === "true" ? true : null;
   const [email, setEmail] = useState<string>("");
-  // localStorage.setItem("authd", "true");
-  // const [authenticated, setAuthenticated] = useState<boolean>(
-  //   localStorage.getItem("authd") === "true" ? true : false
-  // );
+  const [fetchingData, setFetchingData] = useState<boolean>(false);
+  const [loginDisabled, setLoginDisabled] = useState<boolean>(false);
+  const [emailValidationMessage, setEmailValidationMessage] =
+    useState<string>("");
+  const [authenticated, setAuthenticated] = useState<boolean | null>(
+    currentlyAuthed
+  );
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
+    setEmailValidationMessage("");
+    setLoginDisabled(false);
   };
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoginDisabled(true);
+    if (!isValidEmail(email)) {
+      if (email === "") setEmailValidationMessage("Please enter an email");
+      else setEmailValidationMessage("Wrong email format");
+      setAuthenticated(false);
+      return;
+    }
     try {
+      setFetchingData(true);
       const response = await axios.get(JSONPLACEHOLDERS_API.USERS);
+      setFetchingData(false);
       const usersArray: Array<IUser> = response.data;
-      const emailsArray: Array<string> = usersArray.map((element) =>
-        element?.email.toLowerCase()
-      );
-      const isValidEmail: boolean = usersArray.some((element) => {
-        console.log(element.email);
-        if (element.email.toLocaleLowerCase() === email.toLocaleLowerCase()) {
-          localStorage.setItem("userAuthed", JSON.stringify(element));
-          console.log(localStorage.getItem("userAuthed"));
-          return true;
+      const successfullValidation: boolean = usersArray.some(
+        (element: IUser) => {
+          if (element.email.toLocaleLowerCase() === email.toLocaleLowerCase()) {
+            localStorage.setItem("userAuth", JSON.stringify(element));
+            localStorage.setItem("isUserAuthed", "true");
+            setEmailValidationMessage("");
+            setAuthenticated(true);
+            return true;
+          }
+          setAuthenticated(false);
+          return false;
         }
-        console.log("not authed");
-        return false;
-      });
-      if (isValidEmail) {
-        set;
-      }
-    } catch (err) {}
+      );
+      if (!successfullValidation)
+        setEmailValidationMessage("User was not found!");
+    } catch (err: unknown) {
+      setAuthenticated(false);
+      setFetchingData(false);
+      if (err instanceof Error) setEmailValidationMessage(err.message);
+      else console.error(err);
+    }
   };
   return (
     <>
+      {authenticated && <Navigate to="/" />}
       <GlobalStyle />
-      <LoginForm onSubmit={handleSubmit}>
+      <LoginForm onSubmit={handleSubmit} noValidate>
         <Title>WELCOME</Title>
         <EmailInput
           type="email"
           placeholder="user@ravn.co"
           onChange={handleChange}
         ></EmailInput>
-        <LoginButton>LOGIN</LoginButton>
+        <ButtonAndValidation>
+          <LoginButton disabled={loginDisabled}>
+            {fetchingData ? "LOADING" : "LOGIN"}
+          </LoginButton>
+          {authenticated === false && (
+            <ValidationText>
+              {!loginDisabled ? "" : emailValidationMessage}
+            </ValidationText>
+          )}
+        </ButtonAndValidation>
       </LoginForm>
     </>
   );
-  // function includesEmail(inputEmail, emailList) {}
+  function isValidEmail(email: string) {
+    const regex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(email);
+  }
 }
