@@ -81,7 +81,6 @@ export function PostDetails() {
   return (
     <PageContainer>
       <GlobalStyle />
-      {/* <SideBar /> */}
       <PostsAndCommentsContainer>
         <FullPostAndAuthorInfoContainer>
           <FullPost>
