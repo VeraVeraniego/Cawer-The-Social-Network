@@ -6,6 +6,7 @@ import React, { ReactNode, useState } from "react";
 import axios from "axios";
 import { IUser } from "../interfaces/IUser";
 import { JSONPLACEHOLDERS_API } from "../utils/constants";
+import { getUsers } from "../utils/api";
 const LoginForm = styled.form`
   width: 100vw;
   height: 100vh;
@@ -93,13 +94,11 @@ export function Login({ authenticate }: { authenticate: any }) {
 
     try {
       setFetchingData(true);
-      const response = await axios.get(JSONPLACEHOLDERS_API.USERS);
+      const response = await getUsers();
       setFetchingData(false);
-      if (authenticateEmailOnAPI(response.data))
-        navigate("/post", { replace: true });
-      else {
-        setEmailValidationMessage("User was not found!");
-      }
+      if (authenticateEmailOnAPI(response.data!))
+        navigate("/home", { replace: true });
+      else setEmailValidationMessage("User was not found!");
     } catch (err: unknown) {
       setAuthenticated(false);
       setFetchingData(false);
