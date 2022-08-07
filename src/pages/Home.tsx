@@ -21,7 +21,7 @@ export function Home() {
   return (
     <PageContainer>
       <GlobalStyle />
-      <SideBar />
+      {/* <SideBar /> */}
       <PostsContainer>
         <Post />
         <Post />
