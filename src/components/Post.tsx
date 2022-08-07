@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { IPost } from "../interfaces/IPost";
-import { IPostComponent } from "../interfaces/IPostCard";
+import { IPostComponent } from "../interfaces/IPost";
 import palette from "../theme/global-styles";
 const PostContainer = styled.section`
   width: 1000px;
