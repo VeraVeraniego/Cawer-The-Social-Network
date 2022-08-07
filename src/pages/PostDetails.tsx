@@ -1,6 +1,6 @@
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Comment } from "../components/Comment";
-import { SideBar } from "../components/SideBar";
 import palette, { GlobalStyle } from "../theme/global-styles";
 
 const PageContainer = styled.div`
@@ -78,6 +78,7 @@ const CommentsContainer = styled.div`
   gap: 5px;
 `;
 export function PostDetails() {
+  const { id } = useParams();
   return (
     <PageContainer>
       <GlobalStyle />
