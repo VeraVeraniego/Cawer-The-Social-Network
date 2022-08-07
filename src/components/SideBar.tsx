@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import palette, { GlobalStyle } from "../theme/global-styles";
 
 const NavigationBar = styled.article`
@@ -48,16 +48,19 @@ export function SideBar() {
     localStorage.clear();
   }
   return (
-    <NavigationBar>
-      <GlobalStyle />
-      <NavigationLinks>
-        <TitleLink to="/post">My Posts</TitleLink>
-        <TitleLink to="/post">All Posts</TitleLink>
-      </NavigationLinks>
-      <UserLogged>Logged in as: $toDo</UserLogged>
-      <Link to="/login">
-        <LogoutButton onClick={handleLogout}>LOGOUT</LogoutButton>
-      </Link>
-    </NavigationBar>
+    <>
+      <NavigationBar>
+        <GlobalStyle />
+        <NavigationLinks>
+          <TitleLink to="/post">My Posts</TitleLink>
+          <TitleLink to="/post">All Posts</TitleLink>
+        </NavigationLinks>
+        <UserLogged>Logged in as: $toDo</UserLogged>
+        <Link to="/login">
+          <LogoutButton onClick={handleLogout}>LOGOUT</LogoutButton>
+        </Link>
+      </NavigationBar>
+      <Outlet />
+    </>
   );
 }
