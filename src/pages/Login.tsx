@@ -62,7 +62,8 @@ const ValidationText = styled.p`
 `;
 export function Login() {
   const currentlyAuthed: boolean | null =
-    localStorage.getItem("isUserAuthed") === "true" ? true : null;
+    localStorage.getItem("userAuth") === "null" ? true : null;
+  console.log(currentlyAuthed);
   const [email, setEmail] = useState<string>("");
   const [fetchingData, setFetchingData] = useState<boolean>(false);
   const [loginDisabled, setLoginDisabled] = useState<boolean>(false);
@@ -136,7 +137,6 @@ export function Login() {
     const validationResult: boolean = usersAllowed.some((element: IUser) => {
       if (element.email.toLocaleLowerCase() === email.toLocaleLowerCase()) {
         localStorage.setItem("userAuth", JSON.stringify(element));
-        localStorage.setItem("isUserAuthed", "true");
         setEmailValidationMessage("");
         setAuthenticated(true);
         return true;
