@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { SideBar } from "../components/SideBar";
+import { SideBar } from "./SideBar";
 import { GlobalStyle } from "../theme/global-styles";
 
 const PageContainer = styled.div`
