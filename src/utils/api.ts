@@ -40,7 +40,7 @@ export const getAllPosts = async () => {
   return apiResponse;
 };
 
-export const getPostComments = async (postId: number) => {
+export const getPostComments = async (postId: string | undefined) => {
   const apiResponse: IApiResponse = {};
   try {
     const response = await axios.get(
