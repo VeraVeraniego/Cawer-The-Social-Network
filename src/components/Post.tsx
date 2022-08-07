@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { IPost } from "../interfaces/IPost";
+import { IPostComponent } from "../interfaces/IPostCard";
 import palette from "../theme/global-styles";
 const PostContainer = styled.section`
   width: 1000px;
@@ -30,15 +32,12 @@ const PostDescription = styled.p`
   grid-area: desc;
   color: ${palette.green};
 `;
-export function Post() {
+export function Post({ title, body, img }: IPostComponent) {
   return (
     <PostContainer>
-      <PostImage
-        alt="Profile"
-        src="https://freesvg.org/storage/img/thumb/abstract-user-flat-3.png"
-      ></PostImage>
-      <PostTitle>This is a post</PostTitle>
-      <PostDescription>This is a long paragraph</PostDescription>
+      <PostImage alt="Profile" src={img}></PostImage>
+      <PostTitle>{title}</PostTitle>
+      <PostDescription>{body}</PostDescription>
     </PostContainer>
   );
 }
