@@ -27,9 +27,11 @@ export function Home({ path }: { path: "home" | "feed" }) {
 
   useEffect(() => {
     async function getData() {
+      setIsLoading(true);
       const id = user.id;
       const postsData = await getUserPosts(id);
       const allPostsData = await getAllPosts();
+      setIsLoading(false);
       if (path === "home") {
         setPosts(postsData.data);
       }
@@ -39,29 +41,33 @@ export function Home({ path }: { path: "home" | "feed" }) {
     }
     getData();
   }, [user.id, path]);
-
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <PageContainer>
       <GlobalStyle />
       <PostsContainer>
-        {posts?.map((ele) => {
-          return (
-            <PostLink
-              key={ele.id}
-              to={`/post/${ele.id}`}
-              onClick={() =>
-                sessionStorage.setItem("postClicked", JSON.stringify(ele.id))
-              }
-            >
-              <Post
+        {isLoading ? (
+          <h2>Loading...</h2>
+        ) : (
+          posts?.map((ele) => {
+            return (
+              <PostLink
                 key={ele.id}
-                title={ele.title}
-                body={ele.body}
-                img={PHOTOS_API.USER_PHOTOS(ele.userId)}
-              />
-            </PostLink>
-          );
-        })}
+                to={`/post/${ele.id}`}
+                onClick={() =>
+                  sessionStorage.setItem("postClicked", JSON.stringify(ele.id))
+                }
+              >
+                <Post
+                  key={ele.id}
+                  title={ele.title}
+                  body={ele.body}
+                  img={PHOTOS_API.USER_PHOTOS(ele.userId)}
+                />
+              </PostLink>
+            );
+          })
+        )}
       </PostsContainer>
     </PageContainer>
   );
