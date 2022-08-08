@@ -5,7 +5,8 @@ import { Comment } from "../components/Comment";
 import { PostHeaderAndAuthorInfo } from "../components/PostHeaderAndAuthorInfo";
 import { IComment } from "../interfaces/IComment";
 import { GlobalStyle } from "../theme/global-styles";
-import { getPostComments } from "../utils/api";
+import { getPostCommentsByPostId } from "../utils/api";
+import { PHOTOS_API } from "../utils/constants";
 
 const PageContainer = styled.div`
   display: flex;
@@ -22,11 +23,12 @@ const CommentsContainer = styled.div`
   gap: 5px;
 `;
 export function PostDetails() {
-  const [comments, setComments] = useState<Array<IComment>>();
   const { id } = useParams();
+  const [comments, setComments] = useState<Array<IComment>>();
+
   useEffect(() => {
     async function getData() {
-      const commentData = await getPostComments(id);
+      const commentData = await getPostCommentsByPostId(id);
       setComments(commentData.data);
     }
     getData();
@@ -36,7 +38,11 @@ export function PostDetails() {
     <PageContainer>
       <GlobalStyle />
       <PostsAndCommentsContainer>
-        <PostHeaderAndAuthorInfo />
+        <PostHeaderAndAuthorInfo
+        // title={`${post.title} la tit`}
+        // body={`${post.body} la desc`}
+        // img={PHOTOS_API.PHOTOS(id)}
+        ></PostHeaderAndAuthorInfo>
         <CommentsContainer>
           {comments?.map((ele) => {
             return (
@@ -45,6 +51,7 @@ export function PostDetails() {
                 name={ele.name}
                 body={ele.body}
                 email={ele.email}
+                image={PHOTOS_API.USER_PHOTOS(ele.id)}
               />
             );
           })}
