@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { GlobalStyle } from "../theme/global-styles";
 import palette from "../theme/global-styles";
 import { ICommentComponent } from "../interfaces/IComment";
+import { useEffect, useState } from "react";
 
 const CommentContainer = styled.article`
   width: 1011px;
@@ -35,11 +36,11 @@ const Email = styled.p`
   line-height: 15px;
   margin: 20px;
 `;
-export function Comment({ name, body, email }: ICommentComponent) {
+export function Comment({ name, body, email, image }: ICommentComponent) {
   return (
     <CommentContainer>
       <GlobalStyle />
-      <UserCommentImage />
+      <UserCommentImage src={image} />
       <NameAndBodyContainer>
         <Name>{name}</Name>
         <Body>{body}</Body>
