@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { IPost, IPostComponent } from "../interfaces/IPost";
+import { IUser } from "../interfaces/IUser";
 import palette from "../theme/global-styles";
+import { getPostById, getUserById } from "../utils/api";
+import { PHOTOS_API } from "../utils/constants";
 const FullPostAndAuthorInfoContainer = styled.section`
   display: flex;
   gap: 21px;
@@ -62,28 +66,56 @@ const AuthorAddress = styled.h4`
   margin-left: 30px;
 `;
 export function PostHeaderAndAuthorInfo() {
+  // const user: IUser = JSON.parse(localStorage.getItem("userAuth")!);
+
+  useEffect(() => {
+    async function fetchPostById() {
+      const postClicked: number = JSON.parse(
+        sessionStorage.getItem("postClicked")!
+      );
+      const dataResponse = await getPostById(postClicked);
+      const postInfo = dataResponse.data[0];
+      sessionStorage.setItem("postInfo", JSON.stringify(postInfo));
+    }
+
+    async function fetchPostAuthor() {
+      const postInfo = JSON.parse(sessionStorage.getItem("postInfo")!);
+      const authorDataResponse = await getUserById(postInfo.userId);
+      const authorInfo = authorDataResponse.data[0];
+      sessionStorage.setItem("authorInfo", JSON.stringify(authorInfo));
+    }
+    fetchPostAuthor();
+    fetchPostById();
+  }, []);
+
+  const [post, setPost] = useState<IPost>(
+    JSON.parse(sessionStorage.getItem("postInfo")!)
+  );
+  // sessionStorage.removeItem("postInfo");
+  const [userData, setUserData] = useState<IUser>(
+    JSON.parse(sessionStorage.getItem("authorInfo")!)
+  );
+  // sessionStorage.removeItem("authorInfo");
+  // console.log(post);
+  // console.log(userData);
+
   return (
     <FullPostAndAuthorInfoContainer>
       <FullPost>
-        <PostTitle>Post Title</PostTitle>
+        <PostTitle>{`${post?.title}`}</PostTitle>
         <PostImage
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXLXztnfey5NwGn1x1EA1NSlJZ9YS62nGhR4-4ST1Dws3JUvEUWh2dn-pE0qd6LgF7DVs&usqp=CAU"
-          alt="standby"
+          src={PHOTOS_API.PHOTOS(post?.id!)}
+          alt={post?.title}
         ></PostImage>
-        <PostDescription>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id delectus
-          optio, accusamus magni mollitia recusandae facilis quos quas
-          laudantium? Deserunt nulla nemo recusandae asperiores? Earum
-          consequatur rerum doloribus ipsam error.
-        </PostDescription>
+        <PostDescription>{post?.body}</PostDescription>
       </FullPost>
       <AuthorInfo>
-        <AuthorImage />
-        <AuthorName>James Webb</AuthorName>
-        <AuthorUsername>@WebbJaT</AuthorUsername>
-        <AuthorPhone>952543435</AuthorPhone>
-        <AuthorEmail>jameswebb@ravn.co</AuthorEmail>
-        <AuthorAddress>P Sherman 42 Wallabe Sydney</AuthorAddress>
+        <AuthorImage src={PHOTOS_API.USER_PHOTOS(userData?.id!)} />
+        <AuthorName>{userData?.name}</AuthorName>
+        <AuthorUsername>@{userData?.username}</AuthorUsername>
+        <AuthorPhone>{userData?.phone}</AuthorPhone>
+        <AuthorEmail>{userData?.email}</AuthorEmail>
+        <AuthorAddress>{`${userData?.address.street} ${userData?.address.suite} - ${userData?.address.city} ${userData?.address.zipcode}`}</AuthorAddress>
       </AuthorInfo>
     </FullPostAndAuthorInfoContainer>
   );
