@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet, useLocation } from "react-router-dom";
 import palette, { GlobalStyle } from "../theme/global-styles";
 import { IUser } from "../interfaces/IUser";
 
@@ -60,6 +60,7 @@ export function SideBar({ logout }: { logout: any }) {
   function handleLogout() {
     localStorage.clear();
     logout();
+    <Navigate to="login" />;
   }
   return (
     <>
