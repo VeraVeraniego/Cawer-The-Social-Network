@@ -55,10 +55,11 @@ const LogoutButton = styled.h5`
 const LogoutLink = styled(Link)`
   text-decoration: none;
 `;
-export function SideBar() {
+export function SideBar({ logout }: { logout: any }) {
   const location = useLocation().pathname;
   function handleLogout() {
     localStorage.clear();
+    logout();
   }
   return (
     <>
