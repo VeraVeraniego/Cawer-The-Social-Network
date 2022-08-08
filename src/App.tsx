@@ -34,10 +34,10 @@ function App() {
       )}
       <Route
         path="*"
-        element={<Navigate to={authenticate ? "/notfound" : "/login"} />}
+        element={<Navigate to={authenticate ? "/404" : "/login"} />}
       />
 
-      <Route path="/notfound" element={<NotFound />} />
+      <Route path="404" element={<NotFound />} />
     </Routes>
   );
 }
