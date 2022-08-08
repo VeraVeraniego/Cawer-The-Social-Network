@@ -9,4 +9,5 @@ export interface ICommentComponent {
   name: string;
   email: string;
   body: string;
+  image?: string;
 }
