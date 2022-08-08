@@ -14,7 +14,7 @@ export function NotFound() {
   return (
     <PageContainer>
       <GlobalStyle></GlobalStyle>
-      <SideBar />
+      <SideBar logout={null} />
       <ErrorNotFound>Error 404: Page not found</ErrorNotFound>
     </PageContainer>
   );
