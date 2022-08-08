@@ -33,16 +33,11 @@ export function PostDetails() {
     }
     getData();
   }, [id]);
-
   return (
     <PageContainer>
       <GlobalStyle />
       <PostsAndCommentsContainer>
-        <PostHeaderAndAuthorInfo
-        // title={`${post.title} la tit`}
-        // body={`${post.body} la desc`}
-        // img={PHOTOS_API.PHOTOS(id)}
-        ></PostHeaderAndAuthorInfo>
+        <PostHeaderAndAuthorInfo />
         <CommentsContainer>
           {comments?.map((ele) => {
             return (

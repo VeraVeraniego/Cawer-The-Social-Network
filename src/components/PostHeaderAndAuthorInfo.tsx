@@ -96,8 +96,6 @@ export function PostHeaderAndAuthorInfo() {
     JSON.parse(sessionStorage.getItem("authorInfo")!)
   );
   // sessionStorage.removeItem("authorInfo");
-  // console.log(post);
-  // console.log(userData);
 
   return (
     <FullPostAndAuthorInfoContainer>
