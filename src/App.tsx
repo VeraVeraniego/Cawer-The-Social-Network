@@ -20,7 +20,10 @@ function App() {
         path="/login"
         element={<Login authenticate={() => setAuthenticate(true)} />}
       ></Route>
-      <Route path="/" element={<SideBar />}>
+      <Route
+        path="/"
+        element={<SideBar logout={() => setAuthenticate(false)} />}
+      >
         <Route path="home" element={<Home path="home" />}></Route>
         <Route path="feed" element={<Home path="feed" />}></Route>
         <Route path="post/:id" element={<PostDetails />}></Route>
