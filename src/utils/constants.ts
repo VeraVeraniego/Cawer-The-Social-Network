@@ -1,14 +1,18 @@
-const API_URL = "https://jsonplaceholder.typicode.com";
 export const JSONPLACEHOLDERS_API = {
-  USERS: `${API_URL}/users`,
-  USER_POSTS_ID: `${API_URL}/posts?userId=`,
-  ALL_POSTS: `${API_URL}/posts`,
-  COMMENTS: `${API_URL}/comments?postId=`,
+  USERS: `https://jsonplaceholder.typicode.com/users`,
+  ALL_POSTS: `https://jsonplaceholder.typicode.com/posts`,
+  USER_POSTS_BY_ID: (id: number) =>
+    `https://jsonplaceholder.typicode.com/posts?userId=${id}`,
+  COMMENTS: (id: string | undefined) =>
+    `https://jsonplaceholder.typicode.com/comments?postId=${id}`,
+  POST_BY_ID: (id: number) =>
+    `https://jsonplaceholder.typicode.com/posts?id=${id}`,
+  USER_BY_ID: (id: number) =>
+    `https://jsonplaceholder.typicode.com/users?id=${id}`,
 };
 
 export const PHOTOS_API = {
-  USER_PHOTOS: (id: number) =>
+  USER_PHOTOS: (id: number | string) =>
     `https://rickandmortyapi.com/api/character/avatar/${id}.jpeg`,
-  USER_PHOTOS2: `https://rickandmortyapi.com/api/character/`,
-  PHOTOS: (id: number) => `https://picsum.photos/id/10${id}/300/200`,
+  PHOTOS: (id: string | number) => `https://picsum.photos/id/10${id}/300/200`,
 };
