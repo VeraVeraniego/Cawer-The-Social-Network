@@ -24,7 +24,6 @@ const PostLink = styled(Link)`
 export function Home({ path }: { path: "home" | "feed" }) {
   const [user] = useState<IUser>(JSON.parse(localStorage.getItem("userAuth")!));
   const [posts, setPosts] = useState<IPost[]>();
-  // const [photos, setPhotos] = useState<IPhotos[]>();
 
   useEffect(() => {
     async function getData() {
@@ -37,7 +36,6 @@ export function Home({ path }: { path: "home" | "feed" }) {
       if (path === "feed") {
         setPosts(allPostsData.data);
       }
-      // setPhotos(photosData.data);
     }
     getData();
   }, [user.id, path]);
@@ -48,7 +46,13 @@ export function Home({ path }: { path: "home" | "feed" }) {
       <PostsContainer>
         {posts?.map((ele) => {
           return (
-            <PostLink key={ele.id} to={`/post/${ele.id}`}>
+            <PostLink
+              key={ele.id}
+              to={`/post/${ele.id}`}
+              onClick={() =>
+                sessionStorage.setItem("postClicked", JSON.stringify(ele.id))
+              }
+            >
               <Post
                 key={ele.id}
                 title={ele.title}
